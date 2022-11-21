@@ -33,5 +33,5 @@ kubectl get all -n dev
 ```
 
 ## Limitations:
--Traffic distribution cannot be performed based on user registration time, region and other information
+- Traffic distribution cannot be performed based on user registration time, region and other information
 - If the same user calls the service multiple times, it is possible to request the pod of the old version for the first time and pid of the new verison for the second time
