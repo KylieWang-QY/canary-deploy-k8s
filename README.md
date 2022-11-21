@@ -13,3 +13,25 @@ Release application in version 1, use image nginx：1.22，replicas is 3
 kubectl apply -f deploy-1.yaml
 kubectl get all -n dev
 ```
+## Step 2： Create Canary deployment
+Release new version, use image docker/getting-started, replicas is 1
+```
+kubectl apply -f deploy-canary.yaml
+kubectl get all -n dev
+```
+
+## Step 3: Expand the scope of new applications
+```
+kubectl scale deploy nginx-deployment-canary --replicas=3 -n=dev
+kubectl get all -n dev
+```
+
+## Step 4: Offline the old version application
+```
+kubectl scale deploy nginx-deployment-v1 --replicas=0 -n=dev
+kubectl get all -n dev
+```
+
+## Limitations:
+-Traffic distribution cannot be performed based on user registration time, region and other information
+- If the same user calls the service multiple times, it is possible to request the pod of the old version for the first time and pid of the new verison for the second time
